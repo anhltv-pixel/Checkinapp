@@ -1,27 +1,44 @@
 import "../css/style.css";
 import Button from "../Components/Button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function Login() {
-  const [text, setText] = useState("");
+  const [email, setEmail] = useState("");
   const [alerttxt, setAlerttxt] = useState("");
+  const navigate = useNavigate();
   const handleLogin = (e) => {
     e.preventDefault();
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const username = email.split("@")[0];
+    const avatars = [
+      "avatar_1.png",
+      "avatar_2.png",
+      "avatar_3.png",
+      "avatar_4.png",
+    ];
+    const avatar = avatars[Math.floor(Math.random() * avatars.length)];
+
     if (!text) {
       setAlerttxt("Hãy nhập email");
       return;
-    } else if (emailRegex.test(text)) {
-      localStorage.setItem("email", text);
+    } else if (emailRegex.test(email)) {
+      localStorage.setItem(
+        user,
+        JSON.stringify({ email, username, avatar, history: [] })
+      );
       setAlerttxt("");
       alert("Đăng nhập thành công!");
+      navigate("/checkin");
     } else {
       setAlerttxt("Email chưa đúng");
       return;
     }
   };
   const handleChange = (e) => {
-    setText(e.target.value);
-    if (!value) {
+    const v = e.target.value;
+    setEmail(v);
+    if (!v) {
       setAlerttxt("");
     }
   };
@@ -32,7 +49,7 @@ function Login() {
         Đăng nhập bằng email để bắt đầu checkin/checkout
       </p>
       <p className="Loginform-input__ttl">Email</p>
-      <input type="text" value={text} onChange={(e) => handleChange(e)} />
+      <input type="email" value={email} onChange={(e) => handleChange(e)} />
       <p className="Loginform-Alert__txt">{alerttxt}</p>
       <Button typeBtn={"submit"} buttonName={"Đăng nhập"} />
     </form>
