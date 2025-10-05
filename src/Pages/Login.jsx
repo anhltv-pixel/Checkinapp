@@ -19,12 +19,12 @@ function Login() {
     ];
     const avatar = avatars[Math.floor(Math.random() * avatars.length)];
 
-    if (!text) {
+    if (!email) {
       setAlerttxt("Hãy nhập email");
       return;
     } else if (emailRegex.test(email)) {
       localStorage.setItem(
-        user,
+        "user",
         JSON.stringify({ email, username, avatar, history: [] })
       );
       setAlerttxt("");
@@ -44,7 +44,7 @@ function Login() {
   };
   return (
     <form className="Loginform" onSubmit={handleLogin}>
-      <h1>Check-in System</h1>
+      <h2>Check-in System</h2>
       <p className="Loginform-title__description">
         Đăng nhập bằng email để bắt đầu checkin/checkout
       </p>

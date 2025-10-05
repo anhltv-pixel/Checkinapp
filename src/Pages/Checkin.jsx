@@ -1,14 +1,33 @@
+import { useNavigate } from "react-router-dom";
+import "../css/style.css";
+import Realtime from "../Components/Realtime";
+
 function Checkin() {
-  user = JSON.parse(localStorage.getItem(user));
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
   return (
     <div>
       <div className="Header">
-        <img src={avatar} alt="avatar img" />
-        <h1>Xin chào, ${user.username}</h1>
-        <p>{user.email}</p>
-        <button>Đăng xuất</button>
+        <div className="Header-userinfor">
+          <img
+            className="Header-userinfor_avatar"
+            src={user.avatar}
+            alt="avatar img"
+          />
+          <div className="Header-userinfor_email">
+            <h2>Xin chào, {user.username}</h2>
+            <p>{user.email}</p>
+          </div>
+        </div>
+        <button
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          Đăng xuất
+        </button>
       </div>
-      <div className="Time"></div>
+      <Realtime />
       <div className="Body">
         <div className="Body-checkin"></div>
         <div className="Body-checkout"></div>
